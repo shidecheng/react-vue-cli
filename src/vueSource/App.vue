@@ -13,7 +13,7 @@ export default Vue.extend({
         }
     }, 
     components: {
-        Demo: () => import(/* webpackChunkName: "Demo" */ "@/vueSource/components/Demo.vue")
+        Demo: () => import("@/vueSource/components/Demo.vue")
     }
 })
 </script>

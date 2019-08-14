@@ -3,7 +3,7 @@ const WebpackHtmlPlugin = require("html-webpack-plugin")
 const webpack = require("webpack")
 const { VueLoaderPlugin } = require("vue-loader")
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-const fs = require("fs")
+const LodashWebpackPlugin = require('lodash-webpack-plugin')
 module.exports = {
     mode: "development",
     entry: {
@@ -16,11 +16,6 @@ module.exports = {
     },
     module: {
         rules: [
-            {
-                test: /\.js/,
-                loader: "bable-loader",
-                exclude: /node_modules/
-            },
             {
                 test: /\.vue$/,
                 loader: "vue-loader",
@@ -40,12 +35,10 @@ module.exports = {
                 exclude: /node_modules/
             }, 
             {
-                test: /\.bundle\.js$/,
-                loader: "bundle-loader",
-                options: {
-                    name: '[name]'
-                }
-            }
+                test: /\.js$/,
+                loader: "babel-loader",
+                exclude: /node_modules/
+            },
         ],
     },
     resolve: {
@@ -64,21 +57,6 @@ module.exports = {
                     priority: 10,
                     name: "vendor"
                 },
-                lodash: {
-                    chunks: "initial",
-                    test: /lodash/,
-                    priority: 20,
-                    name: "lodash"
-                },
-                async_vendor: {
-                    test: /\.vue$/,
-                    chunks: "async",
-                    minChunks: 1,
-                    priority: 50,
-                    minSize: 0,
-                    name: true,
-                    reuseExistingChunk: true
-                }
             }
         },
         runtimeChunk: {
@@ -93,6 +71,7 @@ module.exports = {
             inject: true
         }),
         new CleanWebpackPlugin(),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new LodashWebpackPlugin()
     ]
 }

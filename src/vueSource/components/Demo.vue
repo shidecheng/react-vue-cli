@@ -6,9 +6,9 @@
 </template>
 <script lang="ts">
   import Vue from "vue"
-  import { head }from "lodash"
+  import head from "lodash.head"
   head([1,2,3])
-  import(/* webpackChunkName: "pagea" */ "./pagea").then((res) => {
+  import("./pagea").then((res) => {
       console.log(res)
   })
   export default Vue.extend({
