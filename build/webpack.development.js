@@ -1,9 +1,10 @@
 const path = require("path")
 const WebpackHtmlPlugin = require("html-webpack-plugin")
-const webpack = require("webpack")
+// const webpack = require("webpack")
 const { VueLoaderPlugin } = require("vue-loader")
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const LodashWebpackPlugin = require('lodash-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 module.exports = {
     mode: "development",
     entry: {
@@ -11,38 +12,62 @@ module.exports = {
      },
     output: {
         path: path.resolve(__dirname, '../dist/'),
-        chunkFilename: "[name].[chunkhash].js",
+        chunkFilename: "[name].js",
         filename: "[name].js"
     },
     module: {
         rules: [
             {
-                test: /\.vue$/,
-                loader: "vue-loader",
-                options: {
-                    loaders: {
-                        css: "vue-style-loader!css-loader"
-                    }
-                }
-            },
-            {
                 test: /\.tsx?$/,
-                loader: "ts-loader", 
-                options: {
-                    configFile: path.resolve(__dirname, '../', "tsconfig.json"),
-                    appendTsSuffixTo: [/\.vue$/],
-                },
+                use: [
+                    {
+                      loader: "babel-loader"
+                    },
+                    {
+                        loader: "ts-loader",
+                        options: {
+                            configFile: path.resolve(__dirname, '../', "tsconfig.json"),
+                            appendTsSuffixTo: [/\.vue$/],
+                        },
+                    }
+                ],
                 exclude: /node_modules/
             }, 
+            {
+                test: /\.vue$/,
+                loader: "vue-loader",
+                // options: {
+                //     loaders: {
+                //         css: [
+                //             MiniCssExtractPlugin.loader,
+                //             'css-loader'
+                //         ]
+                //     }
+                // }
+            },
             {
                 test: /\.js$/,
                 loader: "babel-loader",
                 exclude: /node_modules/
             },
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                ]
+            },
+            // {
+            //     test: /\.(png|jpg|gif|svg)$/,
+            //     loader: "file-loader",
+            //     options: {
+            //         name: 'images/[name].[ext]'
+            //     }
+            // }
         ],
     },
     resolve: {
-        extensions: ['.ts', '.js', '.vue', ".json"],
+        extensions: ['.ts', '.js', '.css', '.vue', ".json"],
         alias: {
             'vue$': "vue/dist/vue.esm.js",
             '@':  path.resolve(__dirname, '../src')
@@ -57,6 +82,12 @@ module.exports = {
                     priority: 10,
                     name: "vendor"
                 },
+                styles: { // 把所有css打包在一起，包括.vue文件中style标签里面的
+                    name: "styles",
+                    test: /\.(css|vue)$/,
+                    chunks: "all",
+                    enforce: true
+                }
             }
         },
         runtimeChunk: {
@@ -72,6 +103,9 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
-        new LodashWebpackPlugin()
+        new LodashWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: "styles/[name].css",
+        })
     ]
 }

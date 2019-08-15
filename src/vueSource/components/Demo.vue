@@ -1,12 +1,12 @@
 <template>
     <div>
-        <h1>{{count}}</h1>
+        <h1 class="h1">{{count}}</h1>
         <button type="button" @click="handleClick">click</button>
     </div> 
 </template>
 <script lang="ts">
   import Vue from "vue"
-  import head from "lodash.head"
+  import { head } from "lodash"
   head([1,2,3])
   import("./pagea").then((res) => {
       console.log(res)
@@ -24,3 +24,8 @@
       }
   })
 </script>
+<style scoped>
+    .h1 {
+        background: "#eee";
+    }
+</style>
