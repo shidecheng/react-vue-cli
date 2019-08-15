@@ -106,6 +106,6 @@ module.exports = {
         new LodashWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: "styles/[name].css",
-        })j
+        })
     ]
 }
