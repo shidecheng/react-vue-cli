@@ -6,11 +6,13 @@
 </template>
 <script lang="ts">
   import Vue from "vue"
-  import { head } from "lodash"
-  head([1,2,3])
-  import("./pagea").then((res) => {
-      console.log(res)
-  })
+  import { rand1 } from "@/vueSource/utils/rand"
+ console.log(rand1)
+//   import { head } from "lodash"
+//   head([1,2,3])
+//   import("./pagea").then((res) => {
+//       console.log(res)
+//   })
   export default Vue.extend({
       data() {
           return {
@@ -26,6 +28,8 @@
 </script>
 <style scoped>
     .h1 {
-        background: "#eee";
+        width: "100px";
+        height: "100px";
+        background: "red";
     }
 </style>

@@ -8,6 +8,8 @@
 <script lang="ts">
 import "@/assets/styles/style"
 import Vue from 'vue'
+import Demo from "@/vueSource/components/Demo.vue"
+import Demo2 from "@/vueSource/components/Demo2.vue"
 export default Vue.extend({
     data() {
         return {
@@ -15,8 +17,8 @@ export default Vue.extend({
         }
     }, 
     components: {
-        Demo: () => import("@/vueSource/components/Demo.vue"),
-        Demo2: () => import("@/vueSource/components/Demo2.vue")
+        Demo,
+        Demo2,
     }
 })
 </script>

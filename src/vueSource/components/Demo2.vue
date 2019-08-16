@@ -8,15 +8,19 @@
     </div>
 </template>
 
-<script lang="ts`">
+<script lang="ts">
+console.log("process", process.env.NODE_ENV)
  import Vue from "vue"
+ import { rand1 } from "@/vueSource/utils/rand"
+ console.log(rand1)
  export default Vue.extend({
     data(){
         return {
             list: [
                 1,
                 2,
-                3
+                3,
+                4,
             ]
         }
     }
@@ -26,6 +30,7 @@
     .demo {
     width: '300px';
     height: "300px";
-    border: "1px solid red"
+    border: "1px solid red";
+    background: url("../../assets/images/_Search.svg") no-repeat;
   }
 </style>
