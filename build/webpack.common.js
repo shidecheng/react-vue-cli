@@ -11,7 +11,7 @@ module.exports = {
      },
     output: {
         path: path.resolve(__dirname, '../dist/'),
-        chunkFilename: "[name].js",
+        chunkFilename: "[name].[hash].js",
         filename: "[name].js"
     },
     module: {
@@ -74,12 +74,6 @@ module.exports = {
                     priority: 10,
                     name: "vendor"
                 },
-                // styles: { // 把所有css打包在一起，包括.vue文件中style标签里面的
-                //     name: "styles",
-                //     test: /\.(css|vue)$/,
-                //     chunks: "all",
-                //     enforce: true,
-                // }, 
             }
         },
         runtimeChunk: {

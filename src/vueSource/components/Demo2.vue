@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul class="demo">
+        <ul class="demo2">
             <li v-for="(val, key) in list" :key="key">
                 {{val}}
             </li>
@@ -27,10 +27,10 @@ console.log("process", process.env.NODE_ENV)
 })
 </script>
 <style scoped> 
-    .demo {
-    width: '300px';
-    height: "300px";
-    border: "1px solid red";
+    .demo2 {
+    width: 300px;
+    height: 300px;
+    border: 1px solid red;
     background: url("../../assets/images/_Search.svg") no-repeat;
   }
 </style>

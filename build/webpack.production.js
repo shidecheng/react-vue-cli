@@ -6,9 +6,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const commonConfig = require('./webpack.common.js')
 const merge = require("webpack-merge")
 module.exports = merge(commonConfig, {
-    // output: {
-    //     publicPath: "",
-    // },  
+    output: {
+        publicPath: "https://www.baidu.com",
+        // chunkFilename: "[name].[chunkHash].js"
+    },  
     plugins: [
         new CleanWebpackPlugin(),
         // new WebpackBundleAnalyzer({

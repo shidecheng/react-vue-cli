@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="h1">{{count}}</h1>
+        <h1 class="demo">{{count}}</h1>
         <button type="button" @click="handleClick">click</button>
     </div> 
 </template>
@@ -21,15 +21,16 @@
       },
       methods: {
           handleClick() {
-              this.count++
+            //   this.count++
+            this.$router.push('./demo2')
           }
       }
   })
 </script>
 <style scoped>
-    .h1 {
-        width: "100px";
-        height: "100px";
-        background: "red";
+    .demo {
+        width: 100px;
+        height: 100px;
+        background: red;
     }
 </style>
