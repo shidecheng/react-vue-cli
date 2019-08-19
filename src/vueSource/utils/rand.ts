@@ -1,7 +1,4 @@
-interface randProps {
-    a: string,
-    abc(): string,
-}
+
 export const rand1 = {
  a: "webpack123"
 }

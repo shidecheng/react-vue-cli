@@ -11,7 +11,7 @@
 <script lang="ts">
 console.log("process", process.env.NODE_ENV)
  import Vue from "vue"
- import { rand1 } from "@/vueSource/utils/rand"
+ import { rand1 } from "@/vueSource/utils/rand.ts"
  console.log(rand1)
  export default Vue.extend({
     data(){

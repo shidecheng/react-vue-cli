@@ -11,7 +11,7 @@
 import Vue from 'vue'
 // import Demo from "@/vueSource/components/Demo.vue"
 // import Demo2 from "@/vueSource/components/Demo2.vue"
-export default Vue.extend({
+export default Vue.extend<any, any, any>({ /* 给类型是为了在Vue上增加全局属性时不会报错 */
     data() {
         return {
             message: 'hello world!'
@@ -19,6 +19,7 @@ export default Vue.extend({
     }, 
     created() {
         console.log("http", this.$http)
+        this.$fn()
     }
     // components: {
     //     Demo,
