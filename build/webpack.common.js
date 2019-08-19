@@ -2,6 +2,7 @@ const path = require("path")
 const WebpackHtmlPlugin = require("html-webpack-plugin")
 const { VueLoaderPlugin } = require("vue-loader")
 const LodashWebpackPlugin = require("lodash-webpack-plugin")
+const extractTextWebpackPlugin = require("extract-text-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 // const WebpackBundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 module.exports = {
@@ -35,6 +36,31 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: "vue-loader",
+                // options: {
+                //     loaders: {
+                //     //     css: [
+                //     //         {
+                //     //             loader: "vue-style-loader",
+                //     //             options: {
+                //     //                 injectType: "singletonStyleTag"
+                //     //             }
+                //     //         },
+                //     //         // process.env.NODE_ENV === "development" ? "vue-style-loader" : MiniCssExtractPlugin.loader,
+                //     //         "css-loader",
+                //     //  ]
+                //     css: extractTextWebpackPlugin.extract({
+                //         fallback: {
+                //             loader: "vue-style-loader",
+                //             options: {
+                //                 singleton: true
+                //             }
+                //         },
+                //         use: {
+                //             loader: "css-loader"
+                //         }
+                //     })
+                //     }
+                // }
             },
             {
                 test: /\.js$/,
@@ -44,9 +70,21 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
+                    process.env.NODE_ENV === "development" ? {
+                        loader: "style-loader",
+                        options: {
+                            injectType: 'singletonStyleTag'
+                        }
+                    }:  MiniCssExtractPlugin.loader,
+                    "css-loader"
                 ]
+                // use: extractTextWebpackPlugin.extract({
+                //     fallback: {
+                //         loader: "style-loader",
+                //         // singleton: true
+                //     },
+                //     use: 'css-loader'
+                // })
             },
             {
                 test: /\.(png|jpe?g|gif|svg|ttf|eot|otf|woff|woff2)$/,
@@ -74,7 +112,7 @@ module.exports = {
                     priority: 10,
                     name: "vendor"
                 },
-            }
+            },
         },
         runtimeChunk: {
             name: "runtime"
@@ -89,10 +127,10 @@ module.exports = {
         }),
         new VueLoaderPlugin(),
         new LodashWebpackPlugin(),
-        new MiniCssExtractPlugin({
-            filename: "styles/[name].css",
-            chunkFilename:"styles/[name].css"
-        }),
+        // new extractTextWebpackPlugin({
+        //     filename: "styles/styles.css",
+        //     allChunks: true,
+        // })
         // new WebpackBundleAnalyzer({
         //     analyzerMode: "static"
         // }),

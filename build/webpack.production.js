@@ -7,11 +7,15 @@ const commonConfig = require('./webpack.common.js')
 const merge = require("webpack-merge")
 module.exports = merge(commonConfig, {
     output: {
-        publicPath: "https://www.baidu.com",
-        // chunkFilename: "[name].[chunkHash].js"
-    },  
+        publicPath: "./",
+        chunkFilename: "[name].[chunkHash:6].js"
+    }, 
     plugins: [
         new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: "styles/styles.css",
+            chunkFilename:"styles/[name].[chunkhash:6].css"
+        }),
         // new WebpackBundleAnalyzer({
         //     analyzerMode: "static"
         // }),

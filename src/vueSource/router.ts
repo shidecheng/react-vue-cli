@@ -1,10 +1,14 @@
-import Demo from "@/vueSource/components/Demo.vue"
-import Demo2 from "@/vueSource/components/Demo2.vue"
 export default [
     {
         path: "/", 
-        component: Demo},
+        component: () => import(/*webpackChunkName: "components/Demo" */"@/vueSource/components/Demo.vue"),
+    },
     {
         path: "/demo2", 
-        component: Demo2}
+        component: () => import(/*webpackChunkName: "components/Demo2" */"@/vueSource/components/Demo2.vue")
+    },  
+    // {
+    //     path: "/demo3", 
+    //     component: () => import(/*webpackChunkName: "components/Demo3" */"@/vueSource/components/Demo3.vue")
+    // }
 ]
