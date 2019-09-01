@@ -4,6 +4,11 @@ const { VueLoaderPlugin } = require("vue-loader")
 const LodashWebpackPlugin = require("lodash-webpack-plugin")
 const extractTextWebpackPlugin = require("extract-text-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const HappyPack = require("happypack")
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const os = require("os")
+// const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length});
+const happyThreadPool = HappyPack.ThreadPool({ size: 1});
 // const WebpackBundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 module.exports = {
     mode: process.env.NODE_ENV,
@@ -19,53 +24,12 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: [
-                    {
-                      loader: "babel-loader"
-                    },
-                    {
-                        loader: "ts-loader",
-                        options: {
-                            configFile: path.resolve(__dirname, '../', "tsconfig.json"),
-                            appendTsSuffixTo: [/\.vue$/],
-                        },
-                    }
-                ],
+                use: "happypack/loader?id=ts",
                 exclude: /node_modules/
             }, 
             {
                 test: /\.vue$/,
                 loader: "vue-loader",
-                // options: {
-                //     loaders: {
-                //     //     css: [
-                //     //         {
-                //     //             loader: "vue-style-loader",
-                //     //             options: {
-                //     //                 injectType: "singletonStyleTag"
-                //     //             }
-                //     //         },
-                //     //         // process.env.NODE_ENV === "development" ? "vue-style-loader" : MiniCssExtractPlugin.loader,
-                //     //         "css-loader",
-                //     //  ]
-                //     css: extractTextWebpackPlugin.extract({
-                //         fallback: {
-                //             loader: "vue-style-loader",
-                //             options: {
-                //                 singleton: true
-                //             }
-                //         },
-                //         use: {
-                //             loader: "css-loader"
-                //         }
-                //     })
-                //     }
-                // }
-            },
-            {
-                test: /\.js$/,
-                loader: "babel-loader",
-                exclude: /node_modules/
             },
             {
                 test: /\.css$/,
@@ -76,15 +40,8 @@ module.exports = {
                             injectType: 'singletonStyleTag'
                         }
                     }:  MiniCssExtractPlugin.loader,
-                    "css-loader"
+                   "css-loader"
                 ]
-                // use: extractTextWebpackPlugin.extract({
-                //     fallback: {
-                //         loader: "style-loader",
-                //         // singleton: true
-                //     },
-                //     use: 'css-loader'
-                // })
             },
             {
                 test: /\.(png|jpe?g|gif|svg|ttf|eot|otf|woff|woff2)$/,
@@ -127,10 +84,26 @@ module.exports = {
         }),
         new VueLoaderPlugin(),
         new LodashWebpackPlugin(),
-        // new extractTextWebpackPlugin({
-        //     filename: "styles/styles.css",
-        //     allChunks: true,
-        // })
+        new HappyPack({
+            id: "ts",
+            threadPool: happyThreadPool,
+            loaders:  [
+                {
+                  path: "babel-loader",
+                },
+                {
+                    path: "ts-loader",
+                    query: {
+                        happyPackMode: true,
+                        configFile: path.resolve(__dirname, '../', "tsconfig.json"),
+                        appendTsSuffixTo: [/\.vue$/],
+                    },
+                }
+            ]
+        }),
+        // new ForkTsCheckerWebpackPlugin({
+        //     checkSyntacticErrors: true
+        // }),
         // new WebpackBundleAnalyzer({
         //     analyzerMode: "static"
         // }),
