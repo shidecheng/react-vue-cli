@@ -4,8 +4,10 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.development.js",
-    "build": "cross-env NODE_ENV=production webpack --config ./build/webpack.production.js",
+    "react-dev": "cross-env NODE_ENV=development START_TYPE=react webpack-dev-server --config ./build/webpack.development.js",
+    "react-build": "cross-env NODE_ENV=production START_TYPE=react webpack --config ./build/webpack.production.js",
+    "vue-dev": "cross-env NODE_ENV=development START_TYPE=vue webpack-dev-server --config ./build/webpack.development.js",
+    "vue-build": "cross-env NODE_ENV=production START_TYPE=vue webpack --config ./build/webpack.production.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +17,8 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-lodash": "^3.3.4",
@@ -49,6 +53,8 @@
     "@types/lodash.head": "^4.0.6",
     "axios": "^0.19.0",
     "lodash.head": "^4.0.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "vue-axios": "^2.1.4",
     "vue-router": "^3.1.2",
     "vuex": "^3.1.1"

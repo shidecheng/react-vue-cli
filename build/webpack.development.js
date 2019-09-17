@@ -1,6 +1,6 @@
-const commonConfig = require('./webpack.common.js')
+// const commonConfig = require('./webpack.vueCommon.js')
+const commonConfig = require('./webpack.commonConfig.js')
 const merge = require("webpack-merge")
-
 module.exports = merge(commonConfig, {
     devServer: {
         contentBase: false,

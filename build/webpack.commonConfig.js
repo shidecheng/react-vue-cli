@@ -2,13 +2,20 @@ const path = require("path")
 const WebpackHtmlPlugin = require("html-webpack-plugin")
 const { VueLoaderPlugin } = require("vue-loader")
 const LodashWebpackPlugin = require("lodash-webpack-plugin")
-const extractTextWebpackPlugin = require("extract-text-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 // const WebpackBundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
+const START_TYPE = process.env.START_TYPE
+const main = path.resolve(__dirname, `../src/${START_TYPE === "react" ? 'reactMain.tsx' : 'vueMain.ts' }`) 
+let options = {
+    configFile: path.resolve(__dirname, '../', "tsconfig.json"),// ts编译器配置
+}
+if (START_TYPE === "vue") {
+    options.appendTsSuffixTo = [/\.vue$/]
+}
 module.exports = {
     mode: process.env.NODE_ENV,
     entry: {
-        main: path.resolve(__dirname, '../src/main.ts'),   
+        main,
      },
     output: {
         path: path.resolve(__dirname, '../dist/'),
@@ -25,42 +32,14 @@ module.exports = {
                     },
                     {
                         loader: "ts-loader",
-                        options: {
-                            configFile: path.resolve(__dirname, '../', "tsconfig.json"),
-                            appendTsSuffixTo: [/\.vue$/],
-                        },
+                        options,
                     }
                 ],
                 exclude: /node_modules/
             }, 
             {
                 test: /\.vue$/,
-                loader: "vue-loader",
-                // options: {
-                //     loaders: {
-                //     //     css: [
-                //     //         {
-                //     //             loader: "vue-style-loader",
-                //     //             options: {
-                //     //                 injectType: "singletonStyleTag"
-                //     //             }
-                //     //         },
-                //     //         // process.env.NODE_ENV === "development" ? "vue-style-loader" : MiniCssExtractPlugin.loader,
-                //     //         "css-loader",
-                //     //  ]
-                //     css: extractTextWebpackPlugin.extract({
-                //         fallback: {
-                //             loader: "vue-style-loader",
-                //             options: {
-                //                 singleton: true
-                //             }
-                //         },
-                //         use: {
-                //             loader: "css-loader"
-                //         }
-                //     })
-                //     }
-                // }
+                loader: "vue-loader"
             },
             {
                 test: /\.js$/,
@@ -78,13 +57,6 @@ module.exports = {
                     }:  MiniCssExtractPlugin.loader,
                     "css-loader"
                 ]
-                // use: extractTextWebpackPlugin.extract({
-                //     fallback: {
-                //         loader: "style-loader",
-                //         // singleton: true
-                //     },
-                //     use: 'css-loader'
-                // })
             },
             {
                 test: /\.(png|jpe?g|gif|svg|ttf|eot|otf|woff|woff2)$/,
@@ -97,12 +69,12 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.ts', '.js', '.css', '.vue', ".json"],
+        extensions: ['.ts', '.tsx', '.js', '.css', ".json"],
         alias: {
-            'vue$': "vue/dist/vue.esm.js",
-            '@':  path.resolve(__dirname, '../src')
+            "@": path.resolve(__dirname, "../src/")
         }
     },
+    // externals: ["react", "react-dom"],
     optimization: {
         splitChunks: {
             cacheGroups: {
@@ -127,10 +99,6 @@ module.exports = {
         }),
         new VueLoaderPlugin(),
         new LodashWebpackPlugin(),
-        // new extractTextWebpackPlugin({
-        //     filename: "styles/styles.css",
-        //     allChunks: true,
-        // })
         // new WebpackBundleAnalyzer({
         //     analyzerMode: "static"
         // }),

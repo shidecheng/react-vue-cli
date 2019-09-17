@@ -3,7 +3,7 @@ const webpack = require("webpack")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const WebpackBundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const commonConfig = require('./webpack.common.js')
+const commonConfig = require('./webpack.commonConfig.js')
 const merge = require("webpack-merge")
 module.exports = merge(commonConfig, {
     output: {
