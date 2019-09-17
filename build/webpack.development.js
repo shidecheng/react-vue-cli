@@ -8,6 +8,6 @@ module.exports = merge(commonConfig, {
         host: "localhost",
         overlay: true,
         inline: true,
-        open: true,
+        open: false,
     }, 
 })

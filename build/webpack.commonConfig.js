@@ -3,6 +3,11 @@ const WebpackHtmlPlugin = require("html-webpack-plugin")
 const { VueLoaderPlugin } = require("vue-loader")
 const LodashWebpackPlugin = require("lodash-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const HappyPack = require("happypack")
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const os = require("os")
+// const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length});
+const happyThreadPool = HappyPack.ThreadPool({ size: 1});
 // const WebpackBundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 const START_TYPE = process.env.START_TYPE
 const main = path.resolve(__dirname, `../src/${START_TYPE === "react" ? 'reactMain.tsx' : 'vueMain.ts' }`) 
@@ -35,6 +40,7 @@ module.exports = {
                         options,
                     }
                 ],
+                use: "happypack/loader?id=ts",
                 exclude: /node_modules/
             }, 
             {
@@ -55,7 +61,7 @@ module.exports = {
                             injectType: 'singletonStyleTag'
                         }
                     }:  MiniCssExtractPlugin.loader,
-                    "css-loader"
+                   "css-loader"
                 ]
             },
             {
@@ -99,6 +105,26 @@ module.exports = {
         }),
         new VueLoaderPlugin(),
         new LodashWebpackPlugin(),
+        new HappyPack({
+            id: "ts",
+            threadPool: happyThreadPool,
+            loaders:  [
+                {
+                  path: "babel-loader",
+                },
+                {
+                    path: "ts-loader",
+                    query: {
+                        happyPackMode: true,
+                        configFile: path.resolve(__dirname, '../', "tsconfig.json"),
+                        appendTsSuffixTo: [/\.vue$/],
+                    },
+                }
+            ]
+        }),
+        // new ForkTsCheckerWebpackPlugin({
+        //     checkSyntacticErrors: true
+        // }),
         // new WebpackBundleAnalyzer({
         //     analyzerMode: "static"
         // }),
