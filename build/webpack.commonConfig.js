@@ -117,7 +117,7 @@ module.exports = {
                     query: {
                         happyPackMode: true,
                         configFile: path.resolve(__dirname, '../', "tsconfig.json"),
-                        appendTsSuffixTo: [/\.vue$/],
+                        appendTsSuffixTo: START_TYPE === "react" ? [] : [/\.vue$/],
                     },
                 }
             ]

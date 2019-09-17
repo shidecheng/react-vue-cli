@@ -17,12 +17,9 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-<<<<<<< HEAD
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
-=======
     "@types/happypack": "^5.0.0",
->>>>>>> 40281fc0668de7513fa91d05bc964557a881443d
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-lodash": "^3.3.4",
