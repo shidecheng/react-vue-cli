@@ -1,7 +1,7 @@
 import Vue from "vue"
-import App from "@/vueSource/App.vue"
+import App from "./vueSource/App.vue"
 import VueRouter from "vue-router"
-import router from "@/vueSource/vueRouter.ts"
+import router from "./vueSource/vueRouter"
 import axios from "axios"
 import VueAxios from "vue-axios"
 Vue.use(VueRouter)

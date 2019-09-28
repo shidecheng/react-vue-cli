@@ -1,7 +1,7 @@
 import React from "react"
-
+import Demo from "./components/Demo"
 export default class App extends React.PureComponent<any, any> {
     render() {
-        return <h1>react Demo!</h1>
+        return <Demo a={"1"}/>
     }
 }
