@@ -75,9 +75,9 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.css', ".json"],
+        extensions: ['.ts', '.tsx', '.js', '.css', ".vue", ".json"],
         alias: {
-            "@": path.resolve(__dirname, "../src/")
+            "@": path.resolve(__dirname, "../src")
         }
     },
     // externals: ["react", "react-dom"],
