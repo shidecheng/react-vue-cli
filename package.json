@@ -54,6 +54,7 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
+    "@material-ui/styles": "^4.4.3",
     "@types/event-emitter": "^0.3.3",
     "@types/lodash": "^4.14.136",
     "@types/lodash.head": "^4.0.6",

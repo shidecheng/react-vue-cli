@@ -1,40 +1,60 @@
 import React from "react"
 import connect from "../../reactFlux/connect"
+import { withStyles } from "@material-ui/styles"
+
+const withStyle = (them: any) => ({
+        root: {
+        width: "300px",
+        height: "300px",
+        border: "1px solid red",
+      }
+})
+
+@(withStyles(withStyle) as <TFUNC> (target: TFUNC) => TFUNC)
 class Demo extends React.PureComponent<any, any> {
     count = 1;
     constructor(props: any) {
         super(props)
         this.state = {
-            demo: this.props.demo
+            message: this.props.message
         }
     }
     static getDerivedStateFromProps(props: any, state: any) {
-        if (props.demo !== state.demo) {
+        if (props.message !== state.message) {
             return {
-                demo: props.demo,
-                prevDemo: props.demo,
+                message: props.message,
+                prevMessage: props.message,
             }
         } else {
             return null
         }
     }
-    handleClick = () => {
+    handleInput = (event: any) => {
         const { demoStore } = this.props
-        demoStore.handleClickChange(this.count++)
+        console.log(event)
+        // this.setState({
+        //     message: event.target.value
+        // })
+        demoStore.handleClickChange(event.target.value)
         
     }
+    handleClick = () => {
+        window.open()
+    }
     render() {
-        const { demo } = this.state
-        console.log("mapStateProps", )
-        return <div>
-            <h1>{demo}</h1>
-            <button type="button" onClick={this.handleClick}>click</button>
+        const { message } = this.state
+        const { classes } = this.props
+        return <div className={classes.root}>
+            <h1>count</h1>
+            <input type="text" value={message} onChange={this.handleInput}/>
+            <div>{message}</div>
+            <button type="button" onClick={this.handleClick}>open a new window</button>
         </div>
     }
 }
 const mapStateProps = (state: any) => {
     return {
-        demo: state.demoStore.app
+        message: state.demoStore.message
     }
 }
 const mapStoreProps = (stores: any) => {

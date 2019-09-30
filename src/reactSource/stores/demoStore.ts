@@ -4,12 +4,12 @@ export default class demoStore extends storeBase {
         super()
     }
     state = {
-        app: "abc"
+        message: "abc"
     }
-    handleClickChange(app: string) {
-      console.log(this, app)
+    handleClickChange(message: string) {
+      console.log(this, message)
       this.setState({
-          app,
+          message,
       })
     }
 }
