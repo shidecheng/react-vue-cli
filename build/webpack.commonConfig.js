@@ -10,6 +10,7 @@ const os = require("os")
 const happyThreadPool = HappyPack.ThreadPool({ size: 1});
 // const WebpackBundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 const START_TYPE = process.env.START_TYPE
+const devtool = process.env.NODE_ENV === "development" ? "cheap-module-eval-source-map" : "cheap-module-source-map"
 const main = path.resolve(__dirname, `../src/${START_TYPE === "react" ? 'reactMain.tsx' : 'vueMain.ts' }`) 
 let options = {
     configFile: path.resolve(__dirname, '../', "tsconfig.json"),// ts编译器配置
@@ -27,6 +28,7 @@ module.exports = {
         chunkFilename: "[name].[hash].js",
         filename: "[name].js"
     },
+    devtool: devtool,
     module: {
         rules: [
             {

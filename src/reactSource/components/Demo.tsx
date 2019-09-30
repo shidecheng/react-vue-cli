@@ -9,7 +9,9 @@ const withStyle = (them: any) => ({
         border: "1px solid red",
       }
 })
-
+const LogProps = React.forwardRef((props: any, ref: any) => {
+    return <div ref={ref}>4556543434</div>
+})
 @(withStyles(withStyle) as <TFUNC> (target: TFUNC) => TFUNC)
 class Demo extends React.PureComponent<any, any> {
     count = 1;
@@ -41,6 +43,9 @@ class Demo extends React.PureComponent<any, any> {
     handleClick = () => {
         window.open()
     }
+    getRef = (ref: any) => {
+        console.log(ref)
+    }
     render() {
         const { message } = this.state
         const { classes } = this.props
@@ -49,9 +54,11 @@ class Demo extends React.PureComponent<any, any> {
             <input type="text" value={message} onChange={this.handleInput}/>
             <div>{message}</div>
             <button type="button" onClick={this.handleClick}>open a new window</button>
+            <LogProps ref={this.getRef}/>
         </div>
     }
 }
+
 const mapStateProps = (state: any) => {
     return {
         message: state.demoStore.message
