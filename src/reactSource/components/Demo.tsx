@@ -1,7 +1,9 @@
 import React from "react"
 import connect from "../../reactFlux/connect"
 import { withStyles } from "@material-ui/styles"
-
+import Demo1 from "./Demo1"
+import Demo2 from "./Demo2"
+import { Route, Switch, Redirect } from "react-router"
 const withStyle = (them: any) => ({
         root: {
         width: "300px",
@@ -41,7 +43,9 @@ class Demo extends React.PureComponent<any, any> {
         
     }
     handleClick = () => {
-        window.open()
+        const { history } = this.props
+        console.log(history)
+        history.push("/demo")
     }
     getRef = (ref: any) => {
         console.log(ref)
@@ -50,11 +54,16 @@ class Demo extends React.PureComponent<any, any> {
         const { message } = this.state
         const { classes } = this.props
         return <div className={classes.root}>
-            <h1>count</h1>
+            <h1>count12233</h1>
             <input type="text" value={message} onChange={this.handleInput}/>
             <div>{message}</div>
             <button type="button" onClick={this.handleClick}>open a new window</button>
             <LogProps ref={this.getRef}/>
+            <Switch>
+                <Route exact={true} path="/demo1" component={Demo1}/>
+                <Route exact={true} path="/demo2" component={Demo2}/>
+                <Redirect to="/demo1"/>
+            </Switch>
         </div>
     }
 }
