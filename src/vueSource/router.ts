@@ -9,6 +9,6 @@ export default [
     },  
     {
         path: "/", 
-        component: () => import(/*webpackChunkName: "components/Demo3" */"@/vueSource/components/DemoDecorator.vue")
+        component: () => import(/*webpackChunkName: "components/Demo3" */"@/vueSource/components/Demo.vue")
     }
 ]

@@ -22,13 +22,14 @@ module.exports = {
     mode: process.env.NODE_ENV,
     entry: {
         main,
+        vendor: ["react", "react-dom", "react-router"]
      },
     output: {
         path: path.resolve(__dirname, '../dist/'),
         chunkFilename: "[name].[hash].js",
         filename: "[name].js"
     },
-    devtool: devtool,
+    // devtool: devtool,
     module: {
         rules: [
             {

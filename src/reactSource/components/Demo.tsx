@@ -59,11 +59,11 @@ class Demo extends React.PureComponent<any, any> {
             <div>{message}</div>
             <button type="button" onClick={this.handleClick}>open a new window</button>
             <LogProps ref={this.getRef}/>
-            <Switch>
-                <Route exact={true} path="/demo1" component={Demo1}/>
-                <Route exact={true} path="/demo2" component={Demo2}/>
+            {/* <Switch>
+                <Route exact path="/demo1" component={Demo1}/>
+                <Route exact path="/demo2" component={Demo2}/>
                 <Redirect to="/demo1"/>
-            </Switch>
+            </Switch> */}
         </div>
     }
 }
