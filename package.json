@@ -63,7 +63,7 @@
     "@types/lodash.head": "^4.0.6",
     "@types/react-router": "^5.1.1",
     "EventEmitter": "^1.0.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "lodash.head": "^4.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
